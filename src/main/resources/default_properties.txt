@@ -1,0 +1,3 @@
+#the basic command is: action -> action
+#multiple actions can be combined, e.g. (action1, action2) -> action3
+#

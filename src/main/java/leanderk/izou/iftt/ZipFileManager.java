@@ -1,4 +1,4 @@
-package org.intellimate.izou.exampleaddon;
+package leanderk.izou.iftt;
 
 import ro.fortsoft.pf4j.PluginWrapper;
 

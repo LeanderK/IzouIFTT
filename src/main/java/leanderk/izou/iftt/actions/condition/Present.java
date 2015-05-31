@@ -6,10 +6,6 @@ import leanderk.izou.iftt.actions.ConditionAction;
 import org.intellimate.izou.sdk.Context;
 import org.intellimate.izou.sdk.frameworks.presence.consumer.PresenceResourceUser;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 /**
  * @author LeanderK
  * @version 1.0
@@ -31,12 +27,6 @@ public class Present extends Action implements ConditionAction, PresenceResource
      */
     @Override
     public boolean evaluate() {
-        try {
-            return isPresent(strict)
-                    .get(500, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            error("unable to obtain", e);
-            return false;
-        }
+        return isPresent(strict);
     }
 }

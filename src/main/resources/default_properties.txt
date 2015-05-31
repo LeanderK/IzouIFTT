@@ -1,3 +1,60 @@
-#the basic command is: action -> action
-#multiple actions can be combined, e.g. (action1, action2) -> action3
+#the basic command is: source -> condition -> target
+#this is an action-flow
+#if there is no condition, it can be simplified to: source -> target
+#source, condition and target are actions. They can be written as: <actionName>(<parameters).
 #
+#
+#
+#
+#currently the following source-actions are implemented:
+#
+#present((optional) unknown, (optional) everyTime, (optional) nonStrict)
+#
+#the standard behaviour is that this action fires at the first encountered presence, where the cause us the known to be the user
+#and he is near izou
+#pass everyTime to start the action-flow every time the user is encountered
+#pass nonStrict to start the action-flow also if it is not guaranteed that the user is around
+#pass unknown to start the action-flow also the when its not clear that the user caused the event
+#
+#after(<id>)
+#
+#this starts the action flow after an event with the specified id was fired.
+#the id can be the full descriptor, or an descriptor written in common-events
+#
+#before(<id>)
+#
+#the same as after, the action-flow just gets triggered before the event gets processed
+#
+#
+#
+#
+#condition actions:
+#they can cancel the execution of the action-flow. Multiple conditions can be combined to an logical and by
+#placing them inside Parentheses, separated by comma or to an logical or by placing them inside a vertical bar
+#seperated by commas. Example: present() -> (action1(), action2) -> target
+#
+#after(<time>), before(<time>)
+#these two conditions cancel the action-flow if the current time is not after/before the time specified in the argument
+#(the format is ISO-8601, example: 10:15:30)
+#
+#present((optional) strict)
+#cancels the action-flow if the user is guaranteed not to be around, if you pass strict it will only not cancel the
+#action-flow if the user is around
+#
+#
+#
+#
+#
+#target actions:
+#
+#fire(<id>)
+#
+#fires an event with the type response and the specified id as an descriptor. they passed id may be directly the descriptor
+#or an descriptor written in commonEvents
+#
+#play(<target>, (optional) <command>)
+#
+#starts music on the specified target, one may choose the track/playlist via the command parameter
+#<target> := id=<id of the player>
+#<command> := track=<name of the track> OR playlist=<name of the playlist>
+

@@ -10,12 +10,12 @@ import org.intellimate.izou.sdk.frameworks.presence.consumer.PresenceResourceUse
  * @author LeanderK
  * @version 1.0
  */
-public class Present extends Action implements ConditionAction, PresenceResourceUser {
-    public static final String ID = Present.class.getCanonicalName();
+public class PresentCondition extends Action implements ConditionAction, PresenceResourceUser {
+    public static final String ID = PresentCondition.class.getCanonicalName();
     public static final String STRICT = "strict";
     private final boolean strict;
 
-    public Present(ActionFlow actionFlow, Context context, String parameter) throws IllegalArgumentException {
+    public PresentCondition(ActionFlow actionFlow, Context context, String parameter) throws IllegalArgumentException {
         super(actionFlow, context, ID);
         strict = parameter.equals(STRICT);
     }

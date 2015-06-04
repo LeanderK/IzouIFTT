@@ -29,8 +29,8 @@ public class AfterListening extends Action implements SourceAction, EventListene
                         return parameter;
                     }
                 }).collect(Collectors.toList());
-
         context.getEvents().registerEventFinishedListener(descriptors, this);
+        actionFlow.addToUnregisterCallback(actionFlow1 -> context.getEvents().unregisterEventListener(this));
     }
 
     /**

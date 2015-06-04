@@ -42,6 +42,7 @@ public class Present extends Action implements SourceAction, EventListenerModel 
         this.unknown = unknown;
         this.everyTime = everyTime;
         getContext().getEvents().registerEventListener(Collections.singletonList(PresenceEvent.ID), this);
+        actionFlow.addToUnregisterCallback(actionFlow1 -> context.getEvents().unregisterEventListener(this));
     }
 
     /**

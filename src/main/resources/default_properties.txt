@@ -57,4 +57,10 @@
 #starts music on the specified target, one may choose the track/playlist via the command parameter
 #<target> := id=<id of the player>
 #<command> := track=<name of the track> OR playlist=<name of the playlist>
+#
+#
+#full example
+#
+#present() -> (after(08:00), before(23:00)) -> play(id=cool.music.player, playlist=chill)
+
 

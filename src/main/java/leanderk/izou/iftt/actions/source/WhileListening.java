@@ -32,6 +32,7 @@ public class WhileListening extends Action implements SourceAction, EventListene
                 }).collect(Collectors.toList());
 
         context.getEvents().registerEventFinishedListener(descriptors, this);
+        actionFlow.addToUnregisterCallback(actionFlow1 -> context.getEvents().unregisterEventListener(this));
     }
 
     /**

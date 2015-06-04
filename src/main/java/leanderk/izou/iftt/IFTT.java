@@ -1,11 +1,14 @@
 package leanderk.izou.iftt;
 
+import leanderk.izou.iftt.actions.ActionFlow;
 import org.intellimate.izou.activator.ActivatorModel;
 import org.intellimate.izou.events.EventsControllerModel;
 import org.intellimate.izou.output.OutputExtensionModel;
 import org.intellimate.izou.output.OutputPluginModel;
 import org.intellimate.izou.sdk.addon.AddOn;
 import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
+
+import java.util.List;
 
 /**
  * the base-addon class
@@ -14,6 +17,8 @@ import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
  */
 public class IFTT extends AddOn {
     public static final String ID = IFTT.class.getCanonicalName();
+    private Parser parser;
+    private List<ActionFlow> actionFlows;
 
     public IFTT() {
         super(ID);
@@ -21,7 +26,14 @@ public class IFTT extends AddOn {
 
     @Override
     public void prepare() {
-
+        Parser parser = new Parser(getContext());
+        actionFlows = parser.parseFile(getContext().getPropertiesAssistant().getPropertiesFile());
+        getContext().getPropertiesAssistant().registerUpdateListener(propertiesAssistant -> {
+            synchronized (this) {
+                actionFlows.forEach(ActionFlow::unregister);
+                actionFlows = parser.parseFile(propertiesAssistant.getPropertiesFile());
+            }
+        });
     }
 
     @Override

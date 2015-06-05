@@ -42,21 +42,21 @@ public class Parser extends AddOnModule {
             if (parts.length != 2 && parts.length != 3)
                 return null;
             ActionFlow actionFlow = new ActionFlow();
-            SourceAction sourceAction = getSourceAction(parts[0], actionFlow);
+            SourceAction sourceAction = getSourceAction(parts[0].trim(), actionFlow);
             if (sourceAction == null)
                 return null;
             actionFlow = actionFlow.setSourceAction(sourceAction);
             if (parts.length == 2) {
-                TargetAction targetAction = getTargetAction(parts[1], actionFlow);
+                TargetAction targetAction = getTargetAction(parts[1].trim(), actionFlow);
                 if (targetAction == null)
                     return null;
                 actionFlow = actionFlow.setTargetAction(targetAction);
                 return actionFlow;
             } else {
-                ConditionAction conditionAction = getConditionAction(parts[1], actionFlow);
+                ConditionAction conditionAction = getConditionAction(parts[1].trim(), actionFlow);
                 if (conditionAction == null)
                     return null;
-                TargetAction targetAction = getTargetAction(parts[2], actionFlow);
+                TargetAction targetAction = getTargetAction(parts[2].trim(), actionFlow);
                 if (targetAction == null)
                     return null;
                 actionFlow = actionFlow.setConditionAction(conditionAction);
@@ -77,7 +77,8 @@ public class Parser extends AddOnModule {
     }
 
     private <V> V getAction (String raw, BiFunction<String, String, V> map) {
-        Pattern pattern = Pattern.compile("(?<name>\\w)\\((?<parameter>\\.*)\\)");
+        raw = raw.trim();
+        Pattern pattern = Pattern.compile("(?<name>\\w+)\\((?<parameter>.*)\\)");
         Matcher matcher = pattern.matcher(raw);
         if (!matcher.matches())
             return null;
@@ -85,7 +86,8 @@ public class Parser extends AddOnModule {
         String parameter = matcher.group("parameter");
         try {
             V apply = map.apply(name, parameter);
-            error("could not get action for input " + raw);
+            if (apply == null)
+                error("could not get action for input " + raw);
             return apply;
         } catch (IllegalArgumentException e) {
             error("error while trying to pares " + raw, e);

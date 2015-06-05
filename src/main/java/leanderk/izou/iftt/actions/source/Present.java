@@ -28,7 +28,8 @@ public class Present extends Action implements SourceAction, EventListenerModel 
         boolean nonStrict = false;
         boolean unknown = false;
         boolean everyTime = false;
-        for(String command : parameter.split(",")) {
+        for (String command : parameter.split(",")) {
+            command = command.trim();
             switch (command) {
                 case NON_STRICT: nonStrict = true;
                     break;

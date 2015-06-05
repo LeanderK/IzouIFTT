@@ -22,6 +22,7 @@ public class WhileListening extends Action implements SourceAction, EventListene
     public WhileListening(String parameter, ActionFlow actionFlow, Context context) throws IllegalArgumentException {
         super(actionFlow, context, ID);
         List<String> descriptors = Arrays.stream(parameter.split(","))
+                .map(String::trim)
                 .map(string -> {
                     String eventID = context.getPropertiesAssistant().getEventPropertiesAssistant().getEventID(parameter);
                     if (eventID != null) {

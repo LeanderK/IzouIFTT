@@ -8,13 +8,14 @@
 #
 #currently the following source-actions are implemented:
 #
-#present((optional) unknown, (optional) everyTime, (optional) nonStrict)
+#present((optional one of these:) unknown, everyTime, nonStrict, firstEncounterDay)
 #
 #the standard behaviour is that this action fires at the first encountered presence, where the cause us the known to be the user
 #and he is near izou
 #pass everyTime to start the action-flow every time the user is encountered
 #pass nonStrict to start the action-flow also if it is not guaranteed that the user is around
 #pass unknown to start the action-flow also the when its not clear that the user caused the event
+#pass firstEncounterDay to start the action-flow when first presence on the individual day was encountered
 #
 #after(<id>)
 #

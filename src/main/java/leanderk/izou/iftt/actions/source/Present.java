@@ -21,7 +21,7 @@ public class Present extends Action implements SourceAction, EventListenerModel 
     public static final String EVERY_TIME = "everyTime";
     public static final String UNKNOWN = "unknown";
     public static final String FIRST_DAY = "firstEncounterDay";
-    private LocalDate lastSeen;
+    private LocalDate lastSeen = LocalDate.now().minusDays(1);
     private final boolean nonStrict;
     private final boolean unknown;
     private final boolean everyTime;

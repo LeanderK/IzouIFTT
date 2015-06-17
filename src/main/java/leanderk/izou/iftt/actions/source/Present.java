@@ -63,9 +63,9 @@ public class Present extends Action implements SourceAction, EventListenerModel 
     public void eventFired(EventModel event) {
         if (firstEncounterDay && !lastSeen.plusDays(1).isEqual(LocalDate.now()))
             return;
-        if (nonStrict && !event.containsDescriptor(PresenceEvent.STRICT_DESCRIPTOR))
+        if (!nonStrict && !event.containsDescriptor(PresenceEvent.STRICT_DESCRIPTOR))
             return;
-        if (unknown && !event.containsDescriptor(PresenceEvent.KNOWN_DESCRIPTOR))
+        if (unknown || !event.containsDescriptor(PresenceEvent.KNOWN_DESCRIPTOR))
             return;
         if (everyTime && !event.containsDescriptor(PresenceEvent.FIRST_ENCOUNTER_DESCRIPTOR))
             return;

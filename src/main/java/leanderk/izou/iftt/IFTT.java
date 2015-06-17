@@ -7,6 +7,7 @@ import org.intellimate.izou.output.OutputExtensionModel;
 import org.intellimate.izou.output.OutputPluginModel;
 import org.intellimate.izou.sdk.addon.AddOn;
 import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
+import ro.fortsoft.pf4j.Extension;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author LeanderK
  * @version 1.0
  */
+@Extension
 public class IFTT extends AddOn {
     public static final String ID = IFTT.class.getCanonicalName();
     private Parser parser;

@@ -11,9 +11,9 @@ import java.util.function.Consumer;
  * @version 1.0
  */
 public class ActionFlow {
-    private final SourceAction sourceAction;
-    private final ConditionAction conditionAction;
-    private final TargetAction targetAction;
+    private SourceAction sourceAction;
+    private ConditionAction conditionAction;
+    private TargetAction targetAction;
     private final List<Consumer<ActionFlow>> unregisters = new ArrayList<>();
 
     public ActionFlow() {
@@ -27,15 +27,18 @@ public class ActionFlow {
     }
 
     public ActionFlow setSourceAction(SourceAction sourceAction) {
-        return new ActionFlow(sourceAction, conditionAction, targetAction);
+        this.sourceAction = sourceAction;
+        return this;
     }
 
     public ActionFlow setConditionAction(ConditionAction conditionAction) {
-        return new ActionFlow(sourceAction, conditionAction, targetAction);
+        this.conditionAction = conditionAction;
+        return this;
     }
 
     public ActionFlow setTargetAction(TargetAction targetAction) {
-        return new ActionFlow(sourceAction, conditionAction, targetAction);
+        this.targetAction = targetAction;
+        return this;
     }
 
     public void addToUnregisterCallback(Consumer<ActionFlow> callback) {

@@ -8,7 +8,7 @@
 #
 #currently the following source-actions are implemented:
 #
-#present((optional one of these:) unknown, everyTime, nonStrict, firstEncounterDay)
+#present((these are optional:) unknown, everyTime, nonStrict, firstEncounterDay ...)
 #
 #the standard behaviour is that this action fires at the first encountered presence, where the cause us the known to be the user
 #and he is near izou
@@ -16,6 +16,9 @@
 #pass nonStrict to start the action-flow also if it is not guaranteed that the user is around
 #pass unknown to start the action-flow also the when its not clear that the user caused the event
 #pass firstEncounterDay to start the action-flow when first presence on the individual day was encountered
+#pass notFirstEncounterDay to start the action-flow when presence on the individual day was encountered, but not the first,
+#pass lastSeen=<minutes last seen> which sets a threshold
+#
 #
 #after(<id>)
 #
@@ -63,5 +66,6 @@
 #full example
 #
 #present() -> (after(08:00), before(23:00)) -> play(id=cool.music.player, playlist=chill)
-
+present(firstEncounterDay) -> fire(izou.FullResponse))
+present(notFirstEncounterDay, lastSeen=40) -> fire(izou.MajorResponse))
 

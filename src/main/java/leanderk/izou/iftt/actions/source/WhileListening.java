@@ -43,6 +43,6 @@ public class WhileListening extends Action implements SourceAction, EventListene
      */
     @Override
     public void eventFired(EventModel event) {
-        getActionFlow().start(callback);
+        getActionFlow().start(success -> {});
     }
 }

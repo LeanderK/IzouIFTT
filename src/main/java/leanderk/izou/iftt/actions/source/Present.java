@@ -55,7 +55,7 @@ public class Present extends Action implements SourceAction, PresenceListener {
                 if (split.length < 2)
                     continue;
                 try {
-                    lastSeenThreshold = Integer.parseInt(split[1]);
+                    lastSeenThreshold = Integer.parseInt(split[1]) * 60;
                 } catch (NumberFormatException e) {
                     debug("unable to parse: " + command, e);
                 }

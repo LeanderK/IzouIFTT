@@ -60,11 +60,15 @@ public class ActionFlow {
      * starts the action flow
      * @param callback
      */
-    public boolean start(Consumer<Boolean> callback) {
-        if (targetAction == null)
-            return true;
-        if (conditionAction.evaluate())
-            return targetAction.execute();
-        return false;
+    public void start(Consumer<Boolean> callback) {
+        if (targetAction == null) {
+            callback.accept(true);
+            return;
+        }
+        if (conditionAction.evaluate()) {
+            targetAction.execute(callback);
+            return;
+        }
+        callback.accept(false);
     }
 }

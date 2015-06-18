@@ -82,7 +82,7 @@ public class Present extends Action implements SourceAction, PresenceListener {
             callback.accept(false);
             return;
         }
-        if (nonStrict && strict) {
+        if (!nonStrict && !strict) {
             callback.accept(false);
             return;
         }

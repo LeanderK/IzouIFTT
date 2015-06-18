@@ -5,8 +5,8 @@ import leanderk.izou.iftt.actions.condition.*;
 import leanderk.izou.iftt.actions.source.AfterListening;
 import leanderk.izou.iftt.actions.source.Present;
 import leanderk.izou.iftt.actions.source.WhileListening;
-import leanderk.izou.iftt.actions.target.FireEvent;
-import leanderk.izou.iftt.actions.target.PlayMusic;
+import leanderk.izou.iftt.actions.targetActions.FireEvent;
+import leanderk.izou.iftt.actions.targetActions.PlayMusic;
 import org.intellimate.izou.sdk.Context;
 import org.intellimate.izou.sdk.util.AddOnModule;
 

@@ -15,15 +15,17 @@ public class ActionFlow {
     private ConditionAction conditionAction;
     private TargetAction targetAction;
     private final List<Consumer<ActionFlow>> unregisters = new ArrayList<>();
+    private final PresenceInfo presenceInfo;
 
-    public ActionFlow() {
-        this(null, () -> true, null);
+    public ActionFlow(PresenceInfo presenceInfo) {
+        this(null, () -> true, null, presenceInfo);
     }
 
-    public ActionFlow(SourceAction sourceAction, ConditionAction conditionAction, TargetAction targetAction) {
+    public ActionFlow(SourceAction sourceAction, ConditionAction conditionAction, TargetAction targetAction, PresenceInfo presenceInfo) {
         this.sourceAction = sourceAction;
         this.conditionAction = conditionAction;
         this.targetAction = targetAction;
+        this.presenceInfo = presenceInfo;
     }
 
     public ActionFlow setSourceAction(SourceAction sourceAction) {
@@ -46,17 +48,23 @@ public class ActionFlow {
             unregisters.add(callback);
     }
 
+    public PresenceInfo getPresenceInfo() {
+        return presenceInfo;
+    }
+
     public void unregister() {
         unregisters.forEach(consumer -> consumer.accept(this));
     }
 
     /**
      * starts the action flow
+     * @param callback
      */
-    public void start() {
+    public boolean start(Consumer<Boolean> callback) {
         if (targetAction == null)
-            return;
+            return true;
         if (conditionAction.evaluate())
-            targetAction.execute();
+            return targetAction.execute();
+        return false;
     }
 }

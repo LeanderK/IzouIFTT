@@ -1,5 +1,7 @@
 package leanderk.izou.iftt.actions;
 
+import java.util.function.Consumer;
+
 /**
  * the Target actions are called in the end of an action flow
  * @author LeanderK
@@ -9,5 +11,5 @@ public interface TargetAction {
     /**
      * gets called.
      */
-    void execute();
+    void execute(Consumer<Boolean> callback);
 }

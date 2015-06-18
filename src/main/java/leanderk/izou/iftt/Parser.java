@@ -41,7 +41,7 @@ public class Parser extends AddOnModule {
             String[] parts = line.split("->");
             if (parts.length != 2 && parts.length != 3)
                 return null;
-            ActionFlow actionFlow = new ActionFlow();
+            ActionFlow actionFlow = new ActionFlow(presenceInfo);
             SourceAction sourceAction = getSourceAction(parts[0].trim(), actionFlow);
             if (sourceAction == null)
                 return null;

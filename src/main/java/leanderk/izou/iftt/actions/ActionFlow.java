@@ -2,6 +2,7 @@ package leanderk.izou.iftt.actions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 /**
@@ -16,16 +17,18 @@ public class ActionFlow {
     private TargetAction targetAction;
     private final List<Consumer<ActionFlow>> unregisters = new ArrayList<>();
     private final PresenceInfo presenceInfo;
+    private final AtomicInteger atomicInteger;
 
-    public ActionFlow(PresenceInfo presenceInfo) {
-        this(null, () -> true, null, presenceInfo);
+    public ActionFlow(PresenceInfo presenceInfo, AtomicInteger atomicInteger) {
+        this(null, () -> true, null, presenceInfo, atomicInteger);
     }
 
-    public ActionFlow(SourceAction sourceAction, ConditionAction conditionAction, TargetAction targetAction, PresenceInfo presenceInfo) {
+    public ActionFlow(SourceAction sourceAction, ConditionAction conditionAction, TargetAction targetAction, PresenceInfo presenceInfo, AtomicInteger atomicInteger) {
         this.sourceAction = sourceAction;
         this.conditionAction = conditionAction;
         this.targetAction = targetAction;
         this.presenceInfo = presenceInfo;
+        this.atomicInteger = atomicInteger;
     }
 
     public ActionFlow setSourceAction(SourceAction sourceAction) {
@@ -50,6 +53,10 @@ public class ActionFlow {
 
     public PresenceInfo getPresenceInfo() {
         return presenceInfo;
+    }
+
+    public int getNextUniqueNumer() {
+        return atomicInteger.incrementAndGet();
     }
 
     public void unregister() {

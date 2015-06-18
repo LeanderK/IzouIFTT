@@ -12,7 +12,7 @@ public class Action extends AddOnModule {
     private final ActionFlow actionFlow;
 
     public Action(ActionFlow actionFlow, Context context, String ID) throws IllegalArgumentException {
-        super(context, ID);
+        super(context, ID + actionFlow.getNextUniqueNumer());
         this.actionFlow = actionFlow;
     }
 

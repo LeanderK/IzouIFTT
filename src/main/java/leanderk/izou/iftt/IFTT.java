@@ -11,6 +11,7 @@ import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
 import ro.fortsoft.pf4j.Extension;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * the base-addon class
@@ -21,6 +22,8 @@ import java.util.List;
 public class IFTT extends AddOn {
     public static final String ID = IFTT.class.getCanonicalName();
     private Parser parser;
+    //used for uniwue ID's
+    private AtomicInteger atomicInteger = new AtomicInteger(0);
     private PresenceInfo presenceInfo;
     private List<ActionFlow> actionFlows;
 
@@ -32,11 +35,11 @@ public class IFTT extends AddOn {
     public void prepare() {
         presenceInfo = new PresenceInfo(getContext());
         Parser parser = new Parser(getContext());
-        actionFlows = parser.parseFile(getContext().getPropertiesAssistant().getPropertiesFile(), presenceInfo);
+        actionFlows = parser.parseFile(getContext().getPropertiesAssistant().getPropertiesFile(), presenceInfo, atomicInteger);
         getContext().getPropertiesAssistant().registerUpdateListener(propertiesAssistant -> {
             synchronized (this) {
                 actionFlows.forEach(ActionFlow::unregister);
-                actionFlows = parser.parseFile(propertiesAssistant.getPropertiesFile(), presenceInfo);
+                actionFlows = parser.parseFile(propertiesAssistant.getPropertiesFile(), presenceInfo, atomicInteger);
             }
         });
     }

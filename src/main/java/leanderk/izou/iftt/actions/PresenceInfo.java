@@ -37,7 +37,7 @@ public class PresenceInfo extends AddOnModule implements EventListenerModel {
     private BooleanConsumerHolder isfirstEncounterDay(Consumer<Boolean> callback) {
         if (lastDaySeen.equals(LocalDate.now()))
             return new BooleanConsumerHolder(false, callback);
-        if (lastSeen.plus(4, ChronoUnit.HOURS).isAfter(LocalDateTime.now())) {
+        if (lastSeen.plus(4, ChronoUnit.HOURS).isBefore(LocalDateTime.now())) {
             return new BooleanConsumerHolder(true, callback.andThen(success -> {
                 if (success) {
                     lastDaySeen = LocalDate.now();

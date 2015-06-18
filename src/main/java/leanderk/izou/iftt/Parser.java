@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -33,12 +34,12 @@ public class Parser extends AddOnModule {
         super(context, ID);
     }
 
-    public List<ActionFlow> parseFile(File file, PresenceInfo presenceInfo) {
+    public List<ActionFlow> parseFile(File file, PresenceInfo presenceInfo, AtomicInteger atomicInteger) {
         Function<String, ActionFlow> parse = line -> {
             String[] parts = line.split("->");
             if (parts.length != 2 && parts.length != 3)
                 return null;
-            ActionFlow actionFlow = new ActionFlow(presenceInfo);
+            ActionFlow actionFlow = new ActionFlow(presenceInfo, atomicInteger);
             SourceAction sourceAction = getSourceAction(parts[0].trim(), actionFlow);
             if (sourceAction == null)
                 return null;

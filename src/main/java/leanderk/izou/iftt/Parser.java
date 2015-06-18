@@ -1,9 +1,6 @@
 package leanderk.izou.iftt;
 
-import leanderk.izou.iftt.actions.ActionFlow;
-import leanderk.izou.iftt.actions.ConditionAction;
-import leanderk.izou.iftt.actions.SourceAction;
-import leanderk.izou.iftt.actions.TargetAction;
+import leanderk.izou.iftt.actions.*;
 import leanderk.izou.iftt.actions.condition.*;
 import leanderk.izou.iftt.actions.source.AfterListening;
 import leanderk.izou.iftt.actions.source.Present;
@@ -36,7 +33,7 @@ public class Parser extends AddOnModule {
         super(context, ID);
     }
 
-    public List<ActionFlow> parseFile(File file) {
+    public List<ActionFlow> parseFile(File file, PresenceInfo presenceInfo) {
         Function<String, ActionFlow> parse = line -> {
             String[] parts = line.split("->");
             if (parts.length != 2 && parts.length != 3)

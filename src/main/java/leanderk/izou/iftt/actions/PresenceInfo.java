@@ -28,9 +28,8 @@ public class PresenceInfo extends AddOnModule implements EventListenerModel {
      * initializes the Module
      *
      * @param context the current Context
-     * @param ID      the ID
      */
-    public PresenceInfo(Context context, String ID) {
+    public PresenceInfo(Context context) {
         super(context, ID);
         getContext().getEvents().registerEventListener(Collections.singletonList(PresenceEvent.ID), this);
     }

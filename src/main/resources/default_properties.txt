@@ -66,6 +66,6 @@
 #full example
 #
 #present() -> (after(08:00), before(23:00)) -> play(id=cool.music.player, playlist=chill)
-present(firstEncounterDay) -> fire(izou.FullResponse))
-present(notFirstEncounterDay, lastSeen=40) -> fire(izou.MajorResponse))
+present(firstEncounterDay) -> fire(izou.FullResponse)
+present(notFirstEncounterDay, lastSeen=40) -> fire(izou.MajorResponse)
 

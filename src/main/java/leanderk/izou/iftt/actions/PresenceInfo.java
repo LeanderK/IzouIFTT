@@ -68,8 +68,8 @@ public class PresenceInfo extends AddOnModule implements EventListenerModel {
         if (strict) {
             BooleanConsumerHolder booleanConsumerHolder = isfirstEncounterDay(callback);
             firstEncounterDay = booleanConsumerHolder.aBoolean;
-            callback = booleanConsumerHolder.callback;
-            callback.andThen(success -> lastSeen = LocalDateTime.now());
+            callback = booleanConsumerHolder.callback
+                    .andThen(success -> lastSeen = LocalDateTime.now());
         }
         boolean known = event.containsDescriptor(PresenceEvent.KNOWN_DESCRIPTOR);
         boolean firstEncounter = event.containsDescriptor(PresenceEvent.FIRST_ENCOUNTER_DESCRIPTOR);

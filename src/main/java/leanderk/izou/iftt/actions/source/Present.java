@@ -90,7 +90,7 @@ public class Present extends Action implements SourceAction, PresenceListener {
             callback.accept(false);
             return;
         }
-        if (!everyTime) {
+        if (!everyTime && !firstEncounterDay) {
             if (!firstEncounter) {
                 callback.accept(false);
                 return;

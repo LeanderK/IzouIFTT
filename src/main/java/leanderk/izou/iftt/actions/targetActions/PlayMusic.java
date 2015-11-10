@@ -8,6 +8,7 @@ import org.intellimate.izou.identification.Identification;
 import org.intellimate.izou.identification.IdentificationManager;
 import org.intellimate.izou.sdk.Context;
 import org.intellimate.izou.sdk.frameworks.music.events.StartMusicRequest;
+import org.intellimate.izou.sdk.frameworks.music.player.PlaybackMode;
 import org.intellimate.izou.sdk.frameworks.music.player.Playlist;
 import org.intellimate.izou.sdk.frameworks.music.player.TrackInfo;
 
@@ -86,7 +87,10 @@ public class PlayMusic extends Action implements TargetAction, org.intellimate.i
                 callback.accept(false);
             }
         } else if (type.equals(PARAMETER_PLAYLIST)) {
-            Playlist playlist = new Playlist(new ArrayList<>(), parameter, new ArrayList<>(), 0);
+            ArrayList<PlaybackMode> playbackModes = new ArrayList<>();
+            if (repeat)
+                playbackModes.add(PlaybackMode.REPEAT);
+            Playlist playlist = new Playlist(new ArrayList<>(), parameter, playbackModes, 0);
             Optional<Identification> playerIdOpt = IdentificationManager.getInstance().getIdentification(player);
             if (!playerIdOpt.isPresent()) {
                 error("unable to get Identification for: " + player);

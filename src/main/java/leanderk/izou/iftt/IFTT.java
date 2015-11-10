@@ -10,6 +10,7 @@ import org.intellimate.izou.sdk.addon.AddOn;
 import org.intellimate.izou.sdk.contentgenerator.ContentGenerator;
 import ro.fortsoft.pf4j.Extension;
 
+import java.io.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,6 +28,8 @@ public class IFTT extends AddOn {
     private PresenceInfo presenceInfo;
     private List<ActionFlow> actionFlows;
 
+    private static PrintWriter printWriter = null;
+
     public IFTT() {
         super(ID);
     }
@@ -36,12 +39,29 @@ public class IFTT extends AddOn {
         presenceInfo = new PresenceInfo(getContext());
         Parser parser = new Parser(getContext());
         actionFlows = parser.parseFile(getContext().getPropertiesAssistant().getPropertiesFile(), presenceInfo, atomicInteger);
+        //presenceInfo.test();
         getContext().getPropertiesAssistant().registerUpdateListener(propertiesAssistant -> {
             synchronized (this) {
                 actionFlows.forEach(ActionFlow::unregister);
                 actionFlows = parser.parseFile(propertiesAssistant.getPropertiesFile(), presenceInfo, atomicInteger);
             }
         });
+        File file = new File(getContext().getFiles().getResourceLocation().getPath() + File.separator + "IFTT.log");
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            printWriter = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized static void write(String text) {
+        if (printWriter != null) {
+            printWriter.println(text);
+            printWriter.flush();
+        }
     }
 
     @Override

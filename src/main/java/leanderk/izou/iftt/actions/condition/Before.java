@@ -1,5 +1,6 @@
 package leanderk.izou.iftt.actions.condition;
 
+import leanderk.izou.iftt.IFTT;
 import leanderk.izou.iftt.actions.Action;
 import leanderk.izou.iftt.actions.ActionFlow;
 import leanderk.izou.iftt.actions.ConditionAction;
@@ -33,6 +34,7 @@ public class Before extends Action implements ConditionAction {
      */
     @Override
     public boolean evaluate() {
+        IFTT.write(LocalTime.now().toString() + " is before " + time);
         return LocalTime.now().isBefore(time);
     }
 }

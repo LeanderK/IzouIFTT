@@ -9,7 +9,6 @@ import org.intellimate.izou.sdk.Context;
 import org.intellimate.izou.sdk.events.CommonEvents;
 import org.intellimate.izou.sdk.events.Event;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
 
@@ -38,20 +37,17 @@ public class FireEvent extends Action implements TargetAction, org.intellimate.i
      */
     @Override
     public void execute(Consumer<Boolean> callback) {
-        Optional<Boolean> optional = IdentificationManager.getInstance().getIdentification(this)
+        IdentificationManager.getInstance().getIdentification(this)
                 .flatMap(id -> Event.createEvent(CommonEvents.Type.RESPONSE_TYPE, id))
                 .map(event -> event.addDescriptor(descriptor))
-                .map(event -> {
-                    event.addEventLifeCycleListener(EventLifeCycle.APPROVED, eventLifeCycle -> callback.accept(true));
-                    return event;
-                })
-                .map(event -> {
-                    event.addEventLifeCycleListener(EventLifeCycle.CANCELED, eventLifeCycle -> callback.accept(false));
-                    return event;
-                })
-                .map(this::fire);
-        if (!optional.isPresent() || !optional.get()) {
-            callback.accept(false);
-        }
+                .map(event ->
+                    event.addEventLifeCycleListener(EventLifeCycle.APPROVED, eventLifeCycle -> callback.accept(true))
+                )
+                .map(event ->
+                    event.addEventLifeCycleListener(EventLifeCycle.CANCELED, eventLifeCycle -> callback.accept(false))
+                )
+                .map(this::fire)
+                .filter(success -> !success)
+                .ifPresent(callback::accept);
     }
 }

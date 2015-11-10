@@ -1,5 +1,7 @@
 package leanderk.izou.iftt.actions;
 
+import leanderk.izou.iftt.IFTT;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -68,14 +70,19 @@ public class ActionFlow {
      * @param callback
      */
     public void start(Consumer<Boolean> callback) {
+        IFTT.write("ActionFlow started");
         if (targetAction == null) {
+            IFTT.write("targetAction is null");
             callback.accept(true);
             return;
         }
+        IFTT.write("targetAction is not null");
         if (conditionAction.evaluate()) {
+            IFTT.write("conditionAction is true");
             targetAction.execute(callback);
-            return;
+        } else {
+            IFTT.write("conditionAction is false");
+            callback.accept(false);
         }
-        callback.accept(false);
     }
 }
